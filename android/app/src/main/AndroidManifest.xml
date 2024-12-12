@@ -1,11 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.movies_app">
+    package="com.example.fakestore_app">
    <application
-        android:label="movies_app"
+        android:label="Fakestore"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
+            android:label="Fakestore"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"

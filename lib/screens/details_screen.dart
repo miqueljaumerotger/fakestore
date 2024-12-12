@@ -1,24 +1,23 @@
+import 'package:fakestore/models/models.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/widgets/widgets.dart';
+import 'package:fakestore/widgets/widgets.dart';
+import 'package:auto_size_text/auto_size_text.dart';  // Importa AutoSizeText
 
 class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: Canviar després per una instància de Peli
-    final String peli =
-        ModalRoute.of(context)?.settings.arguments.toString() ?? 'no-movie';
+    final ProductsList producte = ModalRoute.of(context)?.settings.arguments as ProductsList;
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _CustomAppBar(),
+          _CustomAppBar(product: producte), // Pasa el producto al app bar
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                _PosterAndTitile(),
-                _Overview(),
-                _Overview(),
-                CastingCards(),
+                _PosterAndTitile(product: producte), // Pasa el producto a PosterAndTitle
+                _Overview(product: producte),
+                CastingCards(),  // Asegúrate de tener este widget o elimina si no lo necesitas
               ],
             ),
           ),
@@ -29,9 +28,12 @@ class DetailsScreen extends StatelessWidget {
 }
 
 class _CustomAppBar extends StatelessWidget {
+  final ProductsList product;
+
+  const _CustomAppBar({super.key, required this.product});
+
   @override
   Widget build(BuildContext context) {
-    // Exactament igual que la AppBaer però amb bon comportament davant scroll
     return SliverAppBar(
       backgroundColor: Colors.indigo,
       expandedHeight: 200,
@@ -45,14 +47,16 @@ class _CustomAppBar extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           color: Colors.black12,
           padding: const EdgeInsets.only(bottom: 10),
-          child: Text(
-            'Títol peli',
+          child: AutoSizeText(
+            product.title,  // Título dinámico del producto
             style: TextStyle(fontSize: 16),
+            maxLines: 2, // Controla cuántas líneas puede ocupar el título
+            overflow: TextOverflow.ellipsis,  // Muestra "..." si el texto se corta
           ),
         ),
         background: FadeInImage(
           placeholder: AssetImage('assets/loading.gif'),
-          image: NetworkImage('https://via.placeholder.com/500x300'),
+          image: NetworkImage(product.image ?? 'https://via.placeholder.com/500x300'), // Usa la imagen del producto
           fit: BoxFit.cover,
         ),
       ),
@@ -61,6 +65,10 @@ class _CustomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitile extends StatelessWidget {
+  final ProductsList product;
+
+  const _PosterAndTitile({super.key, required this.product});
+
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
@@ -73,7 +81,7 @@ class _PosterAndTitile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               placeholder: AssetImage('assets/loading.gif'),
-              image: NetworkImage('https://via.placeholder.com/200x300'),
+              image: NetworkImage(product.image ?? 'https://via.placeholder.com/200x300'), // Usa la imagen del producto
               height: 150,
             ),
           ),
@@ -81,24 +89,29 @@ class _PosterAndTitile extends StatelessWidget {
             width: 20,
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Títol peli',
+              AutoSizeText(
+                product.title,  // Título dinámico del producto
                 style: textTheme.headline5,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+                maxLines: 2,  // Limita las líneas a 2
+                overflow: TextOverflow.ellipsis, // Muestra puntos suspensivos si el texto es largo
               ),
-              Text(
-                'Títol original',
+              AutoSizeText(
+                product.category.toString().split('.').last,  // Categoría del producto
                 style: textTheme.subtitle1,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                maxLines: 2,
               ),
               Row(
                 children: [
                   const Icon(Icons.star_outline, size: 15, color: Colors.grey),
                   const SizedBox(width: 5),
-                  Text('Nota mitjana', style: textTheme.caption),
+                  AutoSizeText(
+                    product.rating.rate.toString(), // Calificación dinámica
+                    style: textTheme.caption,
+                    maxLines: 1,
+                  ),
                 ],
               )
             ],
@@ -110,14 +123,20 @@ class _PosterAndTitile extends StatelessWidget {
 }
 
 class _Overview extends StatelessWidget {
+  final ProductsList product;
+
+  const _Overview({super.key, required this.product});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Text(
-        'Labore eiusmod ad reprehenderit irure eu sunt ex minim. Lorem fugiat Lorem proident duis ea cupidatat. Commodo duis culpa reprehenderit ad elit. Velit duis officia reprehenderit ullamco sint id anim officia est. Enim mollit nisi et exercitation dolore commodo. Cillum mollit laborum non nulla cillum non do reprehenderit Lorem deserunt ex eu sunt do.',
+      child: AutoSizeText(
+        product.description,  // Descripción del producto
         textAlign: TextAlign.justify,
         style: Theme.of(context).textTheme.subtitle1,
+        maxLines: 5,  // Limita las líneas a 5
+        overflow: TextOverflow.ellipsis, // Muestra puntos suspensivos si el texto es largo
       ),
     );
   }
