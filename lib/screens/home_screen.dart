@@ -38,9 +38,6 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Fakestore'),
         centerTitle: true,
         elevation: 0,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search_outlined))
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
