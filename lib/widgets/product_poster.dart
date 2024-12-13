@@ -18,7 +18,7 @@ class ProductPoster extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () => Navigator.pushNamed(context, 'details',
-                arguments: 'detalls peli'),
+                arguments: product),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
