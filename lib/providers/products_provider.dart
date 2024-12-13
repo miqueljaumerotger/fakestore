@@ -49,7 +49,7 @@ class ProductsProvider extends ChangeNotifier {
     getOnElectronics();
   }
 
-  // Obtener productos de categorías específicas (joyería, ropa de hombre y mujer)
+  // Obtenir productes de categories específiques
   getOnDisplayProducts() async {
     print('Fetching display products');
     var url = Uri.https(_baseUrl, '/products');
@@ -67,14 +67,14 @@ class ProductsProvider extends ChangeNotifier {
             product.category == Category.WOMEN_S_CLOTHING;
       }).toList();
 
-      isLoading = false; // Datos cargados
+      isLoading = false; // Dades carregades
       notifyListeners();
     } else {
       print('Request failed with status: ${result.statusCode}');
     }
   }
 
-  // Obtener productos electrónicos
+  // Obtenir productes electrònics
   getOnElectronics() async {
     print('Fetching electronics products');
     var url = Uri.https(_baseUrl, '/products/category/electronics');
@@ -86,7 +86,7 @@ class ProductsProvider extends ChangeNotifier {
 
       electronicsProducts = jsonList.map((item) => ProductsList.fromMap(item)).toList();
 
-      notifyListeners(); // Notificar cambios
+      notifyListeners();
     } else {
       print('Request failed with status: ${result.statusCode}');
     }

@@ -46,11 +46,11 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _CustomAppBar(product: producte), // Pasa el producto al app bar
+          _CustomAppBar(product: producte), // Pasa el producta a l'app bar
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                _PosterAndTitile(product: producte), // Pasa el producto a PosterAndTitle
+                _PosterAndTitile(product: producte), // Pasa el producte a PosterAndTitle
                 _Overview(product: producte),
               ],
             ),
@@ -82,15 +82,15 @@ class _CustomAppBar extends StatelessWidget {
           color: Colors.black12,
           padding: const EdgeInsets.only(bottom: 10),
           child: AutoSizeText(
-            product.title,  // Título dinámico del producto
+            product.title,
             style: TextStyle(fontSize: 16),
-            maxLines: 3, // Controla cuántas líneas puede ocupar el título
-            overflow: TextOverflow.ellipsis,  // Muestra "..." si el texto se corta
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,  // Mostra "..." si el text es talla
           ),
         ),
         background: FadeInImage(
           placeholder: AssetImage('assets/loading.gif'),
-          image: NetworkImage(product.image ?? 'https://via.placeholder.com/500x300'), // Usa la imagen del producto
+          image: NetworkImage(product.image ?? 'https://via.placeholder.com/500x300'),
           fit: BoxFit.cover,
         ),
       ),
@@ -107,15 +107,15 @@ class _PosterAndTitile extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
-    // Calcula el número de estrellas llenas según el rating
-    final int filledStars = product.rating.rate.floor(); // Número de estrellas completas
-    final double partialStar = product.rating.rate - filledStars; // Porción de estrella parcial
+    // Calcula el nombre d'estrelles plenes segons el rating
+    final int filledStars = product.rating.rate.floor(); // Nombre d'estrelles completes
+    final double partialStar = product.rating.rate - filledStars; // Porció d'estrella parcial
 
     return Container(
       margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center, // Centra todo horizontalmente
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // Imagen centrada
           ClipRRect(
@@ -123,46 +123,44 @@ class _PosterAndTitile extends StatelessWidget {
             child: FadeInImage(
               placeholder: AssetImage('assets/loading.gif'),
               image: NetworkImage(product.image ?? 'https://via.placeholder.com/200x300'),
-              height: 300, // Ajusta la altura de la imagen según sea necesario
+              height: 300,
               width: double.infinity,
               fit: BoxFit.contain,
             ),
           ),
           const SizedBox(
-            height: 20, // Espacio entre la imagen y el título
+            height: 20, // Espaci entre la imatge i el títol
           ),
-          // Título centrado
           Text(
-            product.title, // Título dinámico del producto
-            style: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
+            product.title,
+            style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
             maxLines: 4,
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(
-            height: 10, // Espacio entre el título y la categoría
+            height: 10, // Espai entre el títol i la categoria
           ),
-          // Categoría centrada
           Text(
-            product.category.toString().split('.').last, // Categoría del producto
-            style: textTheme.subtitle1?.copyWith(color: Colors.grey),
+            product.category.toString().split('.').last,
+            style: textTheme.titleMedium?.copyWith(color: Colors.grey),
             textAlign: TextAlign.center,
           ),
           const SizedBox(
-            height: 10, // Espacio entre la categoría y el rating
+            height: 10, // Espai entre la categoria i el rating
           ),
-          // Rating con estrellas
+          // Rating amb estrelles
           Row(
-            mainAxisAlignment: MainAxisAlignment.center, // Centra la fila horizontalmente
+            mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(5, (index) {
               if (index < filledStars) {
-                // Estrella llena
+                // Estrella plena
                 return const Icon(Icons.star, color: Colors.amber, size: 20);
               } else if (index == filledStars && partialStar > 0) {
                 // Estrella parcial
                 return Icon(Icons.star_half, color: Colors.amber, size: 20);
               } else {
-                // Estrella vacía
+                // Estrella buida
                 return const Icon(Icons.star_border, color: Colors.amber, size: 20);
               }
             }),

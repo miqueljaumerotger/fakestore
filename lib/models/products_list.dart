@@ -41,7 +41,7 @@ class ProductsList {
   double price;
   String description;
   Category category;
-  String? image; // Ahora puede ser null
+  String? image;
   Rating rating;
 
   ProductsList({
@@ -78,7 +78,7 @@ class ProductsList {
         "rating": rating.toMap(),
       };
 
-  // Getter para manejar imagen por defecto
+  // Getter per manejar la imatge per defecte
   String get safeImage => image ?? 'https://i.sstatic.net/GNhxO.png';
 }
 

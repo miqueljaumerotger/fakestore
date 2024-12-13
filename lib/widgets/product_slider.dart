@@ -60,7 +60,7 @@ class ProductSlider extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 5), // Espacio entre el título y el slider
+          const SizedBox(height: 5), // Espai entre el títol i el slider
           Container(
             height: 250,
             child: ListView.builder(

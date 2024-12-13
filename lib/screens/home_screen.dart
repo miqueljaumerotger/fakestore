@@ -45,9 +45,8 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Mostrar productos de las categorías relevantes
             if (productsProvider.isLoading)
-              const Center(child: CircularProgressIndicator()) // Indicador de carga mientras se obtiene la data
+              const Center(child: CircularProgressIndicator())
             else
               Column(
                 children: [

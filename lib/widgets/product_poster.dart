@@ -42,7 +42,6 @@ class ProductPoster extends StatelessWidget {
     return Container(
       width: 130,
       height: 190,
-      // color: Colors.green,
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
